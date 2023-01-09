@@ -1,4 +1,9 @@
-contacts = []
+import json
+
+file = open('contacts.json', 'r', encoding='utf-8')
+dictionary = json.load(file)
+contacts = dictionary['contacts']
+file.close() 
 
 while(True):
     print('Enter your choice,\n1 - add new contact;\n2 - Show contact;\n3 - Exit; (1/2/3?) ')
@@ -8,14 +13,12 @@ while(True):
         person_surname = input('Surname: ')
         person_age = input('Age: ')
         person_phone = input('Phone: ')
-        person_email = input('Email: ')
 
         person_contact = {
             'name': person_name,
             'surname': person_surname,
             'age': person_age,
             'phone': person_phone,
-            'email': person_email
     }
 
         contacts.append(person_contact)
@@ -29,11 +32,15 @@ while(True):
             print(f"{i['name']} {i['surname']}")
             print(f"Age: {i['age']}")
             print(f"Phone: {i['phone']}")
-            print(f"Email: {i['email']}")
         
         
 
     elif i == '3': 
+        dictionary = {'contacts' : contacts}
+        file = open('contacts.json', 'w', encoding='utf-8')
+        json.dump(dictionary, file, indent = 4)
+        file.close()
+        print('Data saved! -^.^-')
         print('Bye bye <3')
         exit()
     
